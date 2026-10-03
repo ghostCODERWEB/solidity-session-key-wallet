@@ -1,8 +1,8 @@
 # ABI reference
 
-Generated from the successfully compiled primary contract. Includes inherited OpenZeppelin methods. Authorization requirements and economic semantics are in the Solidity source and architecture guide.
+Generated from the successfully compiled primary contract. Includes inherited methods. Authorization and economic semantics are documented in the source.
 
-| Signature | Type | Mutability | Return values |
+| Signature | Type | Mutability | Returns |
 |---|---|---|---|
 | `constructor(address admin)` | constructor | nonpayable |  |
 | `EnforcedPause()` | error |  |  |
@@ -22,6 +22,7 @@ Generated from the successfully compiled primary contract. Includes inherited Op
 | `configureSession(address key,uint256 limit,uint64 expiry)` | function | nonpayable |  |
 | `execute(address target,uint256 value,bytes data,uint256 nonce)` | function | nonpayable | bytes result |
 | `generation(address )` | function | view | uint256  |
+| `isTargetAllowed(address key,address target)` | function | view | bool  |
 | `owner()` | function | view | address  |
 | `ownerExecute(address target,uint256 value,bytes data)` | function | nonpayable | bytes result |
 | `paused()` | function | view | bool  |

@@ -78,6 +78,17 @@ contract SessionWallet is SuiteBase {
     function revokeSession(address key) external onlyOwner {
         sessions[key].enabled = false;
     }
+    function isTargetAllowed(
+        address key,
+        address target
+    ) public view returns (bool) {
+        Session memory s = sessions[key];
+        return
+            s.enabled &&
+            block.timestamp < s.expiry &&
+            allowedTargets[key][target] &&
+            targetGeneration[key][target] == generation[key];
+    }
     function execute(
         address target,
         uint256 value,
@@ -85,13 +96,7 @@ contract SessionWallet is SuiteBase {
         uint256 nonce
     ) external nonReentrant whenNotPaused returns (bytes memory result) {
         Session storage s = sessions[msg.sender];
-        require(
-            s.enabled &&
-                block.timestamp < s.expiry &&
-                allowedTargets[msg.sender][target] &&
-                targetGeneration[msg.sender][target] == generation[msg.sender],
-            "session permission"
-        );
+        require(isTargetAllowed(msg.sender, target), "session permission");
         require(
             nonce == s.nonce && value <= s.limit - s.spent,
             "nonce or budget"

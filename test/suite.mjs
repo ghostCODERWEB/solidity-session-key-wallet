@@ -38,4 +38,10 @@ export async function suite(h) {
       c.connect(h.signers[1]).execute(h.addresses[2], 1, "0x", 0),
     );
   });
+  await h.test(
+    "permission view respects revoked session generation",
+    async () => {
+      h.eq(await c.isTargetAllowed(h.addresses[1], h.addresses[2]), false);
+    },
+  );
 }
