@@ -1,0 +1,10 @@
+{
+  "name": "solidity-session-key-wallet",
+  "title": "Scoped session key wallet",
+  "contract": "SessionWallet",
+  "description": "Owner-controlled native wallet with target-scoped session keys, cumulative spending budgets, expiry and nonce sequencing.",
+  "args": [
+    "$ADMIN"
+  ],
+  "assumptions": "Direct session-key transactions, not ERC4337 or EIP712 relaying. Budget limits native value only: calls to approved targets can manipulate tokens or other permissions, so allowlists must be narrowly selected. Reconfiguring a key invalidates old target authorizations. Owner retains unrestricted execution."
+}
